@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <title>Ratio de captura</title>
+</head>
+<body>
+    <% if (previous.error == 1) { %>
+        <p>Has introducido una vida actual superior a la vida máxima, los datos serán erróneos</p>
+    <% } %>
+
+    <label for="first">Primera Generación</label>
+    <input type="radio" name="gen" id="first" <% if (previous.pokegen == 1) { %>checked<% } %>>
+    <label for="second">Segunda Generación</label>
+    <input type="radio" name="gen" id="second" <% if (previous.pokegen == 2) { %>checked<% } %>>
+    <label for="third">Tercera Generación</label>
+    <input type="radio" name="gen" id="third" <% if (previous.pokegen == 3) { %>checked<% } %>>
+    <label for="fifth">Quinta Generación</label>
+    <input type="radio" name="gen" id="fifth" <% if (previous.pokegen == 5) { %>checked<% } %>>
+    <form action="/sentSt" id="st" method="post">
+        <input type="hidden" name="pokegen" value="1">
+        <div>
+            <label for="status">Estado</label>
+            <select name="status" id="status">
+                <% for( let i = 0; i < statusList.length; i++ ) { %>
+                    <option value="<%= statusList[i].id %>" <% if (previous.status == statusList[i].status) { %>selected<% } %>><%= statusList[i].status %></option>
+                <% } %>
+            </select>
+        </div>
+        <div>
+            <label for="maxps">PS Maximos</label>
+            <input type="number" name="maxps" id="maxps" placeholder="PS Maximos" min="1" max="714" value="<% if (previous.maxps) { %><%= previous.maxps %><% } else {%>0<%}%>">
+        </div>
+        <div>
+            <label for="actps">PS Actuales</label>
+            <input type="number" name="actps" id="actps" placeholder="PS Actuales" min="1" max="714" value="<% if (previous.actps) { %><%= previous.actps %><% } else {%>0<%}%>">
+        </div>
+        <div>
+            <label for="pokeratio">Pokemon</label>
+            <select name="pokeratio" id="pokeratio">
+                <% for( let i = 0; i < pokeList.length; i++ ) { %>
+                    <option value="<%= pokeList[i].id %>" <% if (previous.pokeratio == pokeList[i].name) { %>selected<% } %>><%= pokeList[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+        <div>
+            <label for="ballratio">Ball</label>
+            <select name="ballratio" id="ballratio">
+                <% for( let i = 0; i < ballsList.length; i++ ) { %>
+                    <option value="<%= ballsList[i].id %>" <% if (previous.ballratio == ballsList[i].name) { %>selected<% } %>><%= ballsList[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+        <p>Índice a -> <%= data.a %></p>
+        <% if (data.a >= 255) { %>
+            <p>Siendo que el índice a es mayor a 255, el pokemon habría sido capturado en el 100% de las veces en cualquier cantidad de intentos</p>
+        <% } %>
+        <% if (data.b) { %>
+            <% if (data.b.bCatches == true) { %>
+                <p>En uno de tantos ejemplos... La ball giraría <%= data.b.ticks %> veces antes de capturar el pokemon</p>
+            <% } else {%>
+                <p>En uno de tantos ejemplos... La ball giraría <%= data.b.ticks %> <% if (data.b.ticks==1) { %>vez<% } else { %>veces<% } %> para que este salga libre</p>
+            <% } %> 
+            <p>En 10000 intentos, el pokemon fue atrapado <%= data.test.bCatches %> veces y se escapó las otras <%= data.test.bMisses %> veces</p>
+            <p>Por lo cual, la probabilidad de captura fue del <%= data.percent.actual %>% (de un estimado en <%= data.percent.estimated %>%)</p>
+        <% } %>    
+    </form>
+    <form action="/sentNd" id="nd" method="post">
+        <input type="hidden" name="pokegen" value="2">
+    </form>
+    <form action="/sentRd" id="rd" method="post">
+        <input type="hidden" name="pokegen" value="3">
+        <div>
+            <label for="status">Estado</label>
+            <select name="status" id="status">
+                <% for( let i = 0; i < statusList.length; i++ ) { %>
+                    <option value="<%= statusList[i].id %>" <% if (previous.status == statusList[i].status) { %>selected<% } %>><%= statusList[i].status %></option>
+                <% } %>
+            </select>
+        </div>
+        <div>
+            <label for="maxps">PS Maximos</label>
+            <input type="number" name="maxps" id="maxps" placeholder="PS Maximos" min="1" max="714" value="<% if (previous.maxps) { %><%= previous.maxps %><% } else {%>0<%}%>">
+        </div>
+        <div>
+            <label for="actps">PS Actuales</label>
+            <input type="number" name="actps" id="actps" placeholder="PS Actuales" min="1" max="714" value="<% if (previous.actps) { %><%= previous.actps %><% } else {%>0<%}%>">
+        </div>
+        <div>
+            <label for="pokeratio">Pokemon</label>
+            <select name="pokeratio" id="pokeratio">
+                <% for( let i = 0; i < pokeList.length; i++ ) { %>
+                    <option value="<%= pokeList[i].id %>" <% if (previous.pokeratio == pokeList[i].name) { %>selected<% } %>><%= pokeList[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+        <div>
+            <label for="ballratio">Ball</label>
+            <select name="ballratio" id="ballratio">
+                <% for( let i = 0; i < ballsList.length; i++ ) { %>
+                    <option value="<%= ballsList[i].id %>" <% if (previous.ballratio == ballsList[i].name) { %>selected<% } %>><%= ballsList[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+        <p>Índice a -> <%= data.a %></p>
+        <% if (data.a >= 255) { %>
+            <p>Siendo que el índice a es mayor a 255, el pokemon habría sido capturado en el 100% de las veces en cualquier cantidad de intentos</p>
+        <% } %>
+        <% if (data.b) { %>
+            <% if (data.b.bCatches == true) { %>
+                <p>En uno de tantos ejemplos... La ball giraría <%= data.b.ticks %> veces antes de capturar el pokemon</p>
+            <% } else {%>
+                <p>En uno de tantos ejemplos... La ball giraría <%= data.b.ticks %> <% if (data.b.ticks==1) { %>vez<% } else { %>veces<% } %> para que este salga libre</p>
+            <% } %> 
+            <p>En 10000 intentos, el pokemon fue atrapado <%= data.test.bCatches %> veces y se escapó las otras <%= data.test.bMisses %> veces</p>
+            <p>Por lo cual, la probabilidad de captura fue del <%= data.percent.actual %>% (de un estimado en <%= data.percent.estimated %>%)</p>
+        <% } %>
+    </form>
+    <form action="/sentTh" id="fith" method="post">
+        <input type="hidden" name="pokegen" value="5">
+    </form>
+</body>
+</html>

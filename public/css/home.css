@@ -1,0 +1,12 @@
+form {
+    display:none;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+input#first[type="radio"]:checked ~ form#st,input#second[type="radio"]:checked ~ form#nd,input#third[type="radio"]:checked ~ form#rd,input#fifth[type="radio"]:checked ~ form#fith{
+    display:flex;
+}
+
+
+

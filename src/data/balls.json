@@ -1,0 +1,31 @@
+[
+    {
+        "id": "0",
+        "name": "Poke Ball",
+        "ratio": "1"
+    },{
+        "id": "1",
+        "name": "Super Ball",
+        "ratio": "1.5"
+    },{
+        "id": "2",
+        "name": "Ultra Ball",
+        "ratio": "2"
+    },{
+        "id": "3",
+        "name": "Master Ball",
+        "ratio": "255"
+    },{
+        "id": "4",
+        "name": "Veloz Ball",
+        "ratio": "5"
+    },{
+        "id": "5",
+        "name": "Rapid Ball",
+        "ratio": "4"
+    },{
+        "id": "6",
+        "name": "Malla Ball",
+        "ratio": "3"
+    }
+]
